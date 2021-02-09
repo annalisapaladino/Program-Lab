@@ -11,7 +11,7 @@ class CSVTimeSeriesFile:
         values=[]
         # apro e leggo il file, linea per linea
         try:
-            my_file = open('data.csv', 'r')
+            my_file = open(self.name, 'r')
         except:
             raise ExamException('il file non esiste')
 
@@ -57,11 +57,11 @@ def daily_stats(time_series):
         counter = 0
 
         # uso l'indice dichiarato in precedenza per ricavare i valori delle giornate
-        while (index < len(time_series) and time_series[index][0] < end):
-            if (maximum <= time_series[index][1]):
-                maximum = time_series[index][1]      
+        while (index < len(time_series) and time_series[index][0] < end):      
             if (minimum >= time_series[index][1]):
                 minimum = time_series[index][1]
+            if (maximum <= time_series[index][1]):
+                maximum = time_series[index][1]
 
             # incremento
             summation += time_series[index][1]
@@ -70,8 +70,8 @@ def daily_stats(time_series):
 
         summation = summation / counter
 
-        # lista che contiene massimo, minimo e media
-        lista = [maximum, minimum, summation]
+        # lista che contiene minimo, massimo e media
+        lista = [minimum, maximum, summation]
         statistics.append(lista)
     print(len(statistics))
     return statistics
